@@ -5,3 +5,5 @@ applications:
   instances: 1
   buildpack: java_buildpack
   path: build/libs/helloworld-0.1.0.jar
+  routes:
+    - route: helloworld-stg.local.pcfdev.io

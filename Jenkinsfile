@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying....'
-                sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-test -o pcfdev-org && cf push"
+                sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-test -o pcfdev-org && cf push -f manifest-test.yml"
             }
         }
         stage('Deploy to stage?') {
@@ -34,7 +34,7 @@ pipeline {
         stage('Deploying to stage') {
             steps {
                 echo 'Deploying....'
-                sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-stage -o pcfdev-org && cf push"
+                sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-stage -o pcfdev-org && cf push -f manifest-stage.yml"
             }
         }
         stage('Deploy to prod?') {
@@ -45,7 +45,7 @@ pipeline {
         stage('Deploying to prod') {
                 steps {
                     echo 'Deploying....'
-                    sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-prod -o pcfdev-org && cf push"
+                    sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-prod -o pcfdev-org && cf push -f manifest-prod.yml"
                 }
         }
     }
