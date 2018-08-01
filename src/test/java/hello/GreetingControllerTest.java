@@ -8,6 +8,6 @@ public class GreetingControllerTest {
 
     @Test
     public void myTest() {
-        assertTrue(true);
+        assertTrue(false);
     }
 }
