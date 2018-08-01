@@ -15,7 +15,7 @@ pipeline {
                 sh "./gradlew test"
             }
         }
-        stage('Deploy') {
+        stage('Deploy to test') {
             when {
               expression {
                 currentBuild.result == null || currentBuild.result == 'SUCCESS'
@@ -25,6 +25,28 @@ pipeline {
                 echo 'Deploying....'
                 sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-test -o pcfdev-org && cf push"
             }
+        }
+        stage('Deploy to stage?') {
+            steps {
+                input 'Approve deployment?'
+            }
+        }
+        stage('Deploying to stage') {
+            steps {
+                echo 'Deploying....'
+                sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-stage -o pcfdev-org && cf push"
+            }
+        }
+        stage('Deploy to prod?') {
+                    steps {
+                        input 'Approve deployment?'
+                    }
+                }
+        stage('Deploying to prod') {
+                steps {
+                    echo 'Deploying....'
+                    sh "cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u user -p pass -s pcfdev-prod -o pcfdev-org && cf push"
+                }
         }
     }
 }
